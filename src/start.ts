@@ -1,12 +1,11 @@
 import { createStart } from '@tanstack/react-start'
-import { errorFnMiddleware } from './middlewares/fn/error-fn-middleware'
 import { createCsrfMiddleware } from '@tanstack/react-start'
 
+import { errorFnMiddleware } from './middlewares/fn/error-fn-middleware'
 
-  const csrfMiddleware = createCsrfMiddleware({
-    filter: (ctx) => ctx.handlerType === 'serverFn',
-  })
-
+const csrfMiddleware = createCsrfMiddleware({
+  filter: (ctx) => ctx.handlerType === 'serverFn',
+})
 
 export const startInstance = createStart(() => {
   return {
