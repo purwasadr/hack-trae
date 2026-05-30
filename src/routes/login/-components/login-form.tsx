@@ -44,7 +44,6 @@ export default function LoginForm({
             const res = await authClient.signIn.email({
               email: value.email,
               password: value.password,
-              rememberMe: true,
             })
             if (res.error) {
               throw res.error
@@ -67,11 +66,11 @@ export default function LoginForm({
 
   return (
     <div className={cn('flex flex-col gap-6', className)}>
-      <Card>
+      <Card className="border-[#dbe7d4] bg-[linear-gradient(180deg,#ffffff_0%,#fbfcf8_100%)]">
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle className="text-xl">Login to your account</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Enter your email and password to return to your latest reflections.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -95,9 +94,9 @@ export default function LoginForm({
                 <form.SubscribeButton label="Login" className="w-full" />
               </form.AppForm>
             </FieldGroup>
-            <div className="text-center text-sm mt-6">
+            <div className="mt-6 text-center text-sm text-[#6b7566]">
               Don&apos;t have an account?{' '}
-              <Link to="/register" className="underline underline-offset-4">
+              <Link to="/register" className="font-medium text-[#3b8e20] underline underline-offset-4">
                 Register
               </Link>
             </div>

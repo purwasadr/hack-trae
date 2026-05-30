@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { Flag, Sparkles } from 'lucide-react'
 import { z } from 'zod'
 
 import { PageShell } from '@/components/coach/page-shell'
@@ -48,6 +49,33 @@ function OnboardingStrugglePage() {
         </Link>
       )}
     >
+      <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+        <Card className="border-[#dbe7d4] bg-[linear-gradient(180deg,#ffffff_0%,#f8fbf4_100%)]">
+          <CardHeader>
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef8e8] text-[#3b8e20]">
+              <Flag className="size-5" />
+            </div>
+            <CardTitle>Choose one main friction point</CardTitle>
+            <CardDescription>
+              Keeping one clear struggle in view helps the coach avoid generic advice and
+              stay close to what actually feels hard right now.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+        <Card className="bg-[#fcfdf9]">
+          <CardHeader>
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f6f7dc] text-[#b88b18]">
+              <Sparkles className="size-5" />
+            </div>
+            <CardTitle>Supportive framing</CardTitle>
+            <CardDescription>
+              This is not about choosing a flaw. It is about giving your reflections one
+              clear improvement theme.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </section>
+
       <section className="grid gap-4 md:grid-cols-2">
         {mainStruggleOptions.map((item) => (
           <Link
@@ -57,15 +85,19 @@ function OnboardingStrugglePage() {
               avatar: search.avatar,
               mainStruggle: item.value,
             }}
-            className="block"
+            className="group block"
           >
             <Card
-              className={search.mainStruggle === item.value ? 'border-primary bg-primary/5' : ''}
+              className={search.mainStruggle === item.value
+                ? 'border-[#98c77a] bg-[linear-gradient(180deg,#f7fbf2_0%,#edf6e4_100%)]'
+                : 'bg-[#fcfdf9] transition group-hover:-translate-y-0.5 group-hover:border-[#cfdcc6]'}
             >
               <CardHeader>
                 <div className="flex items-center justify-between gap-3">
                   <CardTitle>{item.label}</CardTitle>
-                  {search.mainStruggle === item.value ? <Badge>Selected</Badge> : null}
+                  {search.mainStruggle === item.value ? (
+                    <Badge className="bg-[#4ea72e] text-white">Selected</Badge>
+                  ) : null}
                 </div>
                 <CardDescription>
                   The coach will use this as the main theme for your early feedback.

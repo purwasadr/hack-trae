@@ -5,6 +5,7 @@ import {
   redirect,
   useRouterState,
 } from '@tanstack/react-router'
+import { ClipboardList, Sparkles } from 'lucide-react'
 
 import { AnalysisPanel } from '@/components/coach/analysis-panel'
 import { PageShell } from '@/components/coach/page-shell'
@@ -63,7 +64,45 @@ function ReflectionDetailPage() {
         </>
       )}
     >
-      <Card>
+      <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+        <Card className="border-[#dbe7d4] bg-[linear-gradient(180deg,#ffffff_0%,#f8fbf4_100%)]">
+          <CardHeader>
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef8e8] text-[#3b8e20]">
+              <ClipboardList className="size-5" />
+            </div>
+            <CardTitle>Reflection overview</CardTitle>
+          </CardHeader>
+          <CardContent className="grid gap-2 text-sm leading-6 text-[#6b7566]">
+            <p>
+              <span className="font-medium text-slate-900">Focus:</span>{' '}
+              {reflection.reflection.focusLevel}/10
+            </p>
+            <p>
+              <span className="font-medium text-slate-900">Energy:</span>{' '}
+              {reflection.reflection.energyLevel}/10
+            </p>
+            <p>
+              <span className="font-medium text-slate-900">Mood:</span>{' '}
+              {reflection.reflection.mood.replaceAll('_', ' ')}
+            </p>
+          </CardContent>
+        </Card>
+        <Card className="bg-[#fcfdf9]">
+          <CardHeader>
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f6f7dc] text-[#b88b18]">
+              <Sparkles className="size-5" />
+            </div>
+            <CardTitle>Latest analysis status</CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm leading-6 text-[#6b7566]">
+            {reflection.analysis
+              ? `This entry currently has a ${reflection.analysis.status} analysis attached.`
+              : 'This entry is saved, but no completed analysis is attached yet.'}
+          </CardContent>
+        </Card>
+      </section>
+
+      <Card className="bg-[#fcfdf9]">
         <CardHeader>
           <CardTitle>Original reflection</CardTitle>
         </CardHeader>

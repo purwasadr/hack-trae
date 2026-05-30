@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { Sparkles, Target } from 'lucide-react'
 import { z } from 'zod'
 import { toast } from 'sonner'
 
@@ -100,7 +101,34 @@ function OnboardingGoalPage() {
         </Link>
       )}
     >
-      <Card>
+      <section className="grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
+        <Card className="border-[#dbe7d4] bg-[linear-gradient(180deg,#ffffff_0%,#f8fbf4_100%)]">
+          <CardHeader>
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef8e8] text-[#3b8e20]">
+              <Target className="size-5" />
+            </div>
+            <CardTitle>Choose a goal you can actually keep</CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm leading-6 text-[#6b7566]">
+            A smaller target is better here. The dashboard and reflection prompts will use
+            this as your first anchor, so realism matters more than ambition.
+          </CardContent>
+        </Card>
+        <Card className="bg-[#fcfdf9]">
+          <CardHeader>
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f6f7dc] text-[#b88b18]">
+              <Sparkles className="size-5" />
+            </div>
+            <CardTitle>Suggested from your pattern</CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm leading-6 text-[#6b7566]">
+            These options are based on your quiz result and main struggle so your first
+            step feels easier to follow through on.
+          </CardContent>
+        </Card>
+      </section>
+
+      <Card className="border-[#dbe7d4] bg-white">
         <CardHeader>
           <CardTitle>First goal</CardTitle>
         </CardHeader>

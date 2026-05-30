@@ -9,7 +9,7 @@ const config = defineConfig({
   plugins: [
     devtools(),
     nitro({
-      preset: 'bun',
+      preset: 'vercel',
     }),
     tailwindcss(),
     tanstackStart(),

@@ -50,7 +50,6 @@ export default function RegisterForm({
               name: value.name,
               email: value.email,
               password: value.password,
-              rememberMe: true,
             })
 
             if (res.error) {
@@ -74,9 +73,9 @@ export default function RegisterForm({
 
   return (
     <div className={cn('flex flex-col gap-6', className)}>
-      <Card>
+      <Card className="border-[#dbe7d4] bg-[linear-gradient(180deg,#ffffff_0%,#fbfcf8_100%)]">
         <CardHeader>
-          <CardTitle>Create your account</CardTitle>
+          <CardTitle className="text-xl">Create your account</CardTitle>
           <CardDescription>
             Start your self-reflection coach with a simple email and password.
           </CardDescription>
@@ -105,9 +104,9 @@ export default function RegisterForm({
                 <form.SubscribeButton label="Create account" className="w-full" />
               </form.AppForm>
             </FieldGroup>
-            <div className="mt-6 text-center text-sm">
+            <div className="mt-6 text-center text-sm text-[#6b7566]">
               Already have an account?{' '}
-              <Link to="/login" className="underline underline-offset-4">
+              <Link to="/login" className="font-medium text-[#3b8e20] underline underline-offset-4">
                 Login
               </Link>
             </div>

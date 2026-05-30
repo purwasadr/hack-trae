@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { ClipboardCheck, Sparkles, Target } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { PageShell } from '@/components/coach/page-shell'
@@ -60,7 +61,48 @@ function NewReflectionPage() {
       title="Capture today before the details fade"
       description="Pick the choices that fit today best. The coach will use them to build a practical analysis without making you type every detail."
     >
-      <Card>
+      <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+        <Card className="border-[#dbe7d4] bg-[linear-gradient(180deg,#ffffff_0%,#f8fbf4_100%)]">
+          <CardHeader>
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef8e8] text-[#3b8e20]">
+              <ClipboardCheck className="size-5" />
+            </div>
+            <CardTitle>Guided daily reflection</CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm leading-6 text-[#6b7566]">
+            Choose what fits today best. The coach works better with honest patterns than
+            with perfect detail, so quick answers are enough.
+          </CardContent>
+        </Card>
+        <div className="grid gap-6">
+          <Card className="bg-[#fcfdf9]">
+            <CardHeader>
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef8e8] text-[#3b8e20]">
+                <Target className="size-5" />
+              </div>
+              <CardTitle>Current goal</CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm leading-6 text-[#6b7566]">
+              {profile?.firstGoal ?? 'Your first goal will appear here after onboarding.'}
+            </CardContent>
+          </Card>
+          <Card className="bg-[#fcfdf9]">
+            <CardHeader>
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f6f7dc] text-[#b88b18]">
+                <Sparkles className="size-5" />
+              </div>
+              <CardTitle>Reflection style</CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm leading-6 text-[#6b7566]">
+              {profile
+                ? `Questions are tailored to your ${profile.productivityStyle.replaceAll('_', ' ')} pattern.`
+                : 'Questions stay short and practical so you can finish the check-in quickly.'}
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      <Card className="border-[#dbe7d4] bg-white">
         <CardHeader>
           <CardTitle>Daily reflection</CardTitle>
         </CardHeader>

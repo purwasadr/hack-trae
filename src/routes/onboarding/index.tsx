@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Compass, Flag, Shapes } from 'lucide-react'
 
 import { PageShell } from '@/components/coach/page-shell'
 import { Badge } from '@/components/ui/badge'
@@ -21,6 +21,27 @@ export const Route = createFileRoute('/onboarding/')({
 })
 
 function OnboardingStartPage() {
+  const steps = [
+    {
+      description: 'Start with the working style that feels closest to you today.',
+      icon: Compass,
+      label: 'Step 1',
+      title: 'Choose your avatar',
+    },
+    {
+      description: 'Keep the coach focused on the friction you most want to improve.',
+      icon: Flag,
+      label: 'Step 2',
+      title: 'Name your main struggle',
+    },
+    {
+      description: 'Get a style suggestion, then set one realistic first target.',
+      icon: Shapes,
+      label: 'Step 3',
+      title: 'Shape your starting plan',
+    },
+  ] as const
+
   return (
     <PageShell
       eyebrow="Onboarding"
@@ -37,52 +58,39 @@ function OnboardingStartPage() {
       )}
     >
       <section className="grid gap-6 lg:grid-cols-3">
-        <Card>
-          <CardHeader>
-            <Badge variant="outline" className="w-fit">
-              Step 1
-            </Badge>
-            <CardTitle>Choose your avatar</CardTitle>
-            <CardDescription>
-              Start with the working style that feels closest to you today.
-            </CardDescription>
-          </CardHeader>
-        </Card>
-        <Card>
-          <CardHeader>
-            <Badge variant="outline" className="w-fit">
-              Step 2
-            </Badge>
-            <CardTitle>Name your main struggle</CardTitle>
-            <CardDescription>
-              This keeps the app focused on the friction you most want to improve.
-            </CardDescription>
-          </CardHeader>
-        </Card>
-        <Card>
-          <CardHeader>
-            <Badge variant="outline" className="w-fit">
-              Step 3
-            </Badge>
-            <CardTitle>Get a coach style and first goal</CardTitle>
-            <CardDescription>
-              A quick quiz shapes the tone, then you set one realistic first target.
-            </CardDescription>
-          </CardHeader>
-        </Card>
+        {steps.map((step) => (
+          <Card key={step.title} className="bg-[#fcfdf9]">
+            <CardHeader>
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef8e8] text-[#3b8e20]">
+                <step.icon className="size-5" />
+              </div>
+              <Badge variant="outline" className="w-fit">
+                {step.label}
+              </Badge>
+              <CardTitle>{step.title}</CardTitle>
+              <CardDescription>{step.description}</CardDescription>
+            </CardHeader>
+          </Card>
+        ))}
       </section>
 
-      <Card>
+      <Card className="border-[#dbe7d4] bg-[linear-gradient(180deg,#ffffff_0%,#f8fbf4_100%)]">
         <CardHeader>
           <CardTitle>What this unlocks</CardTitle>
           <CardDescription>
             Your dashboard, daily reflections, history, and AI productivity analysis.
           </CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-3 text-sm text-muted-foreground">
-          <p>Daily check-ins stay grounded in your goal and current work pattern.</p>
-          <p>The AI uses encouraging language and avoids blame-focused labels.</p>
-          <p>You always leave with a small, practical plan for tomorrow.</p>
+        <CardContent className="grid gap-4 text-sm sm:grid-cols-3">
+          <div className="rounded-[20px] border border-[#e4e8df] bg-white p-4 text-[#6b7566]">
+            Daily check-ins stay grounded in your goal and current work pattern.
+          </div>
+          <div className="rounded-[20px] border border-[#e4e8df] bg-white p-4 text-[#6b7566]">
+            The AI uses encouraging language and avoids blame-focused labels.
+          </div>
+          <div className="rounded-[20px] border border-[#e4e8df] bg-white p-4 text-[#6b7566]">
+            You always leave with a small, practical plan for tomorrow.
+          </div>
         </CardContent>
       </Card>
     </PageShell>

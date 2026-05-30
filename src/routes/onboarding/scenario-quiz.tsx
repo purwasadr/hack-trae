@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { ClipboardList, Sparkles } from 'lucide-react'
 import { z } from 'zod'
 
 import { PageShell } from '@/components/coach/page-shell'
@@ -74,7 +75,33 @@ function OnboardingScenarioQuizPage() {
         </Link>
       )}
     >
-      <Card>
+      <section className="grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
+        <Card className="border-[#dbe7d4] bg-[linear-gradient(180deg,#ffffff_0%,#f8fbf4_100%)]">
+          <CardHeader>
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef8e8] text-[#3b8e20]">
+              <ClipboardList className="size-5" />
+            </div>
+            <CardTitle>Quick pattern check</CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm leading-6 text-[#6b7566]">
+            These answers help the coach estimate how you naturally plan, recover, and
+            respond when work gets messy. The result is only a starting point.
+          </CardContent>
+        </Card>
+        <Card className="bg-[#fcfdf9]">
+          <CardHeader>
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f6f7dc] text-[#b88b18]">
+              <Sparkles className="size-5" />
+            </div>
+            <CardTitle>Only four choices</CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm leading-6 text-[#6b7566]">
+            Pick the option that feels closest. You do not need to overthink it.
+          </CardContent>
+        </Card>
+      </section>
+
+      <Card className="border-[#dbe7d4] bg-white">
         <CardHeader>
           <CardTitle>Productivity style quiz</CardTitle>
         </CardHeader>
