@@ -9,13 +9,46 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as HistoryRouteImport } from './routes/history'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RegisterIndexRouteImport } from './routes/register/index'
+import { Route as OnboardingIndexRouteImport } from './routes/onboarding/index'
 import { Route as LoginIndexRouteImport } from './routes/login/index'
+import { Route as ReflectionNewRouteImport } from './routes/reflection/new'
+import { Route as ReflectionReflectionIdRouteImport } from './routes/reflection/$reflectionId'
+import { Route as OnboardingStyleResultRouteImport } from './routes/onboarding/style-result'
+import { Route as OnboardingStruggleRouteImport } from './routes/onboarding/struggle'
+import { Route as OnboardingScenarioQuizRouteImport } from './routes/onboarding/scenario-quiz'
+import { Route as OnboardingGoalRouteImport } from './routes/onboarding/goal'
+import { Route as OnboardingAvatarRouteImport } from './routes/onboarding/avatar'
+import { Route as ReflectionReflectionIdResultRouteImport } from './routes/reflection/$reflectionId/result'
+import { Route as ReflectionReflectionIdProcessingRouteImport } from './routes/reflection/$reflectionId/processing'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
+const HistoryRoute = HistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterIndexRoute = RegisterIndexRouteImport.update({
+  id: '/register/',
+  path: '/register/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingIndexRoute = OnboardingIndexRouteImport.update({
+  id: '/onboarding/',
+  path: '/onboarding/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginIndexRoute = LoginIndexRouteImport.update({
@@ -23,6 +56,53 @@ const LoginIndexRoute = LoginIndexRouteImport.update({
   path: '/login/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReflectionNewRoute = ReflectionNewRouteImport.update({
+  id: '/reflection/new',
+  path: '/reflection/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReflectionReflectionIdRoute = ReflectionReflectionIdRouteImport.update({
+  id: '/reflection/$reflectionId',
+  path: '/reflection/$reflectionId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingStyleResultRoute = OnboardingStyleResultRouteImport.update({
+  id: '/onboarding/style-result',
+  path: '/onboarding/style-result',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingStruggleRoute = OnboardingStruggleRouteImport.update({
+  id: '/onboarding/struggle',
+  path: '/onboarding/struggle',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingScenarioQuizRoute = OnboardingScenarioQuizRouteImport.update({
+  id: '/onboarding/scenario-quiz',
+  path: '/onboarding/scenario-quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingGoalRoute = OnboardingGoalRouteImport.update({
+  id: '/onboarding/goal',
+  path: '/onboarding/goal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingAvatarRoute = OnboardingAvatarRouteImport.update({
+  id: '/onboarding/avatar',
+  path: '/onboarding/avatar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReflectionReflectionIdResultRoute =
+  ReflectionReflectionIdResultRouteImport.update({
+    id: '/result',
+    path: '/result',
+    getParentRoute: () => ReflectionReflectionIdRoute,
+  } as any)
+const ReflectionReflectionIdProcessingRoute =
+  ReflectionReflectionIdProcessingRouteImport.update({
+    id: '/processing',
+    path: '/processing',
+    getParentRoute: () => ReflectionReflectionIdRoute,
+  } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -31,41 +111,168 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/history': typeof HistoryRoute
+  '/onboarding/avatar': typeof OnboardingAvatarRoute
+  '/onboarding/goal': typeof OnboardingGoalRoute
+  '/onboarding/scenario-quiz': typeof OnboardingScenarioQuizRoute
+  '/onboarding/struggle': typeof OnboardingStruggleRoute
+  '/onboarding/style-result': typeof OnboardingStyleResultRoute
+  '/reflection/$reflectionId': typeof ReflectionReflectionIdRouteWithChildren
+  '/reflection/new': typeof ReflectionNewRoute
   '/login/': typeof LoginIndexRoute
+  '/onboarding/': typeof OnboardingIndexRoute
+  '/register/': typeof RegisterIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/reflection/$reflectionId/processing': typeof ReflectionReflectionIdProcessingRoute
+  '/reflection/$reflectionId/result': typeof ReflectionReflectionIdResultRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/history': typeof HistoryRoute
+  '/onboarding/avatar': typeof OnboardingAvatarRoute
+  '/onboarding/goal': typeof OnboardingGoalRoute
+  '/onboarding/scenario-quiz': typeof OnboardingScenarioQuizRoute
+  '/onboarding/struggle': typeof OnboardingStruggleRoute
+  '/onboarding/style-result': typeof OnboardingStyleResultRoute
+  '/reflection/$reflectionId': typeof ReflectionReflectionIdRouteWithChildren
+  '/reflection/new': typeof ReflectionNewRoute
   '/login': typeof LoginIndexRoute
+  '/onboarding': typeof OnboardingIndexRoute
+  '/register': typeof RegisterIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/reflection/$reflectionId/processing': typeof ReflectionReflectionIdProcessingRoute
+  '/reflection/$reflectionId/result': typeof ReflectionReflectionIdResultRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/history': typeof HistoryRoute
+  '/onboarding/avatar': typeof OnboardingAvatarRoute
+  '/onboarding/goal': typeof OnboardingGoalRoute
+  '/onboarding/scenario-quiz': typeof OnboardingScenarioQuizRoute
+  '/onboarding/struggle': typeof OnboardingStruggleRoute
+  '/onboarding/style-result': typeof OnboardingStyleResultRoute
+  '/reflection/$reflectionId': typeof ReflectionReflectionIdRouteWithChildren
+  '/reflection/new': typeof ReflectionNewRoute
   '/login/': typeof LoginIndexRoute
+  '/onboarding/': typeof OnboardingIndexRoute
+  '/register/': typeof RegisterIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/reflection/$reflectionId/processing': typeof ReflectionReflectionIdProcessingRoute
+  '/reflection/$reflectionId/result': typeof ReflectionReflectionIdResultRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login/' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/history'
+    | '/onboarding/avatar'
+    | '/onboarding/goal'
+    | '/onboarding/scenario-quiz'
+    | '/onboarding/struggle'
+    | '/onboarding/style-result'
+    | '/reflection/$reflectionId'
+    | '/reflection/new'
+    | '/login/'
+    | '/onboarding/'
+    | '/register/'
+    | '/api/auth/$'
+    | '/reflection/$reflectionId/processing'
+    | '/reflection/$reflectionId/result'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/api/auth/$'
-  id: '__root__' | '/' | '/login/' | '/api/auth/$'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/history'
+    | '/onboarding/avatar'
+    | '/onboarding/goal'
+    | '/onboarding/scenario-quiz'
+    | '/onboarding/struggle'
+    | '/onboarding/style-result'
+    | '/reflection/$reflectionId'
+    | '/reflection/new'
+    | '/login'
+    | '/onboarding'
+    | '/register'
+    | '/api/auth/$'
+    | '/reflection/$reflectionId/processing'
+    | '/reflection/$reflectionId/result'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/history'
+    | '/onboarding/avatar'
+    | '/onboarding/goal'
+    | '/onboarding/scenario-quiz'
+    | '/onboarding/struggle'
+    | '/onboarding/style-result'
+    | '/reflection/$reflectionId'
+    | '/reflection/new'
+    | '/login/'
+    | '/onboarding/'
+    | '/register/'
+    | '/api/auth/$'
+    | '/reflection/$reflectionId/processing'
+    | '/reflection/$reflectionId/result'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRoute
+  HistoryRoute: typeof HistoryRoute
+  OnboardingAvatarRoute: typeof OnboardingAvatarRoute
+  OnboardingGoalRoute: typeof OnboardingGoalRoute
+  OnboardingScenarioQuizRoute: typeof OnboardingScenarioQuizRoute
+  OnboardingStruggleRoute: typeof OnboardingStruggleRoute
+  OnboardingStyleResultRoute: typeof OnboardingStyleResultRoute
+  ReflectionReflectionIdRoute: typeof ReflectionReflectionIdRouteWithChildren
+  ReflectionNewRoute: typeof ReflectionNewRoute
   LoginIndexRoute: typeof LoginIndexRoute
+  OnboardingIndexRoute: typeof OnboardingIndexRoute
+  RegisterIndexRoute: typeof RegisterIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register/': {
+      id: '/register/'
+      path: '/register'
+      fullPath: '/register/'
+      preLoaderRoute: typeof RegisterIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/': {
+      id: '/onboarding/'
+      path: '/onboarding'
+      fullPath: '/onboarding/'
+      preLoaderRoute: typeof OnboardingIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login/': {
@@ -74,6 +281,69 @@ declare module '@tanstack/react-router' {
       fullPath: '/login/'
       preLoaderRoute: typeof LoginIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/reflection/new': {
+      id: '/reflection/new'
+      path: '/reflection/new'
+      fullPath: '/reflection/new'
+      preLoaderRoute: typeof ReflectionNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reflection/$reflectionId': {
+      id: '/reflection/$reflectionId'
+      path: '/reflection/$reflectionId'
+      fullPath: '/reflection/$reflectionId'
+      preLoaderRoute: typeof ReflectionReflectionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/style-result': {
+      id: '/onboarding/style-result'
+      path: '/onboarding/style-result'
+      fullPath: '/onboarding/style-result'
+      preLoaderRoute: typeof OnboardingStyleResultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/struggle': {
+      id: '/onboarding/struggle'
+      path: '/onboarding/struggle'
+      fullPath: '/onboarding/struggle'
+      preLoaderRoute: typeof OnboardingStruggleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/scenario-quiz': {
+      id: '/onboarding/scenario-quiz'
+      path: '/onboarding/scenario-quiz'
+      fullPath: '/onboarding/scenario-quiz'
+      preLoaderRoute: typeof OnboardingScenarioQuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/goal': {
+      id: '/onboarding/goal'
+      path: '/onboarding/goal'
+      fullPath: '/onboarding/goal'
+      preLoaderRoute: typeof OnboardingGoalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/avatar': {
+      id: '/onboarding/avatar'
+      path: '/onboarding/avatar'
+      fullPath: '/onboarding/avatar'
+      preLoaderRoute: typeof OnboardingAvatarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reflection/$reflectionId/result': {
+      id: '/reflection/$reflectionId/result'
+      path: '/result'
+      fullPath: '/reflection/$reflectionId/result'
+      preLoaderRoute: typeof ReflectionReflectionIdResultRouteImport
+      parentRoute: typeof ReflectionReflectionIdRoute
+    }
+    '/reflection/$reflectionId/processing': {
+      id: '/reflection/$reflectionId/processing'
+      path: '/processing'
+      fullPath: '/reflection/$reflectionId/processing'
+      preLoaderRoute: typeof ReflectionReflectionIdProcessingRouteImport
+      parentRoute: typeof ReflectionReflectionIdRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -85,9 +355,37 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ReflectionReflectionIdRouteChildren {
+  ReflectionReflectionIdProcessingRoute: typeof ReflectionReflectionIdProcessingRoute
+  ReflectionReflectionIdResultRoute: typeof ReflectionReflectionIdResultRoute
+}
+
+const ReflectionReflectionIdRouteChildren: ReflectionReflectionIdRouteChildren =
+  {
+    ReflectionReflectionIdProcessingRoute:
+      ReflectionReflectionIdProcessingRoute,
+    ReflectionReflectionIdResultRoute: ReflectionReflectionIdResultRoute,
+  }
+
+const ReflectionReflectionIdRouteWithChildren =
+  ReflectionReflectionIdRoute._addFileChildren(
+    ReflectionReflectionIdRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRoute,
+  HistoryRoute: HistoryRoute,
+  OnboardingAvatarRoute: OnboardingAvatarRoute,
+  OnboardingGoalRoute: OnboardingGoalRoute,
+  OnboardingScenarioQuizRoute: OnboardingScenarioQuizRoute,
+  OnboardingStruggleRoute: OnboardingStruggleRoute,
+  OnboardingStyleResultRoute: OnboardingStyleResultRoute,
+  ReflectionReflectionIdRoute: ReflectionReflectionIdRouteWithChildren,
+  ReflectionNewRoute: ReflectionNewRoute,
   LoginIndexRoute: LoginIndexRoute,
+  OnboardingIndexRoute: OnboardingIndexRoute,
+  RegisterIndexRoute: RegisterIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

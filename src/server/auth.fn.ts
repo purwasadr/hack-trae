@@ -1,19 +1,14 @@
 import { createServerFn } from '@tanstack/react-start'
-import { getRequestHeaders } from '@tanstack/react-start/server'
 
-import { auth } from '@/lib/auth'
-import { ServerFnError } from '@/lib/server-fn-error'
+import authFnMiddleware from '@/middlewares/fn/auth-fn-middleware'
 
 export const getSession = createServerFn({ method: 'GET' }).handler(async () => {
-  const headers = getRequestHeaders()
-  const session = await auth.api.getSession({ headers })
-  return session
+  const { getServerSession } = await import('./auth.server')
+  return getServerSession()
 })
-export const ensureSession = createServerFn({ method: 'GET' }).handler(async () => {
-  const headers = getRequestHeaders()
-  const session = await auth.api.getSession({ headers })
-  if (!session) {
-    throw new ServerFnError('UNAUTHORIZED', 'You must be logged in to access this resource')
-  }
-  return session
-})
+
+export const ensureSession = createServerFn({ method: 'GET' })
+  .middleware([authFnMiddleware])
+  .handler(async ({ context }) => {
+    return context.session
+  })

@@ -1,8 +1,16 @@
 import { createStart } from '@tanstack/react-start'
 import { errorFnMiddleware } from './middlewares/fn/error-fn-middleware'
+import { createCsrfMiddleware } from '@tanstack/react-start'
+
+
+  const csrfMiddleware = createCsrfMiddleware({
+    filter: (ctx) => ctx.handlerType === 'serverFn',
+  })
+
 
 export const startInstance = createStart(() => {
   return {
     functionMiddleware: [errorFnMiddleware],
+    requestMiddleware: [csrfMiddleware],
   }
 })

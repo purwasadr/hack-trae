@@ -1,23 +1,20 @@
-/// <reference types="vite/client" />
-
 interface ImportMetaEnv {
-  // Client-side environment variables
-  readonly VITE_APP_NAME: string
-  readonly VITE_APP_URL: string
+  readonly OPENROUTER_API_KEY: string
+  readonly OPENROUTER_MODEL: string
+  readonly OPENROUTER_APP_URL?: string
+  readonly OPENROUTER_APP_NAME?: string
 }
 
 interface ImportMeta {
   readonly env: ImportMetaEnv
 }
 
-// Server-side environment variables
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      readonly NODE_ENV: 'development' | 'production' | 'test'
-      readonly BETTER_AUTH_SECRET: string
-      readonly DATABASE_URL: string
-    }
+declare namespace NodeJS {
+  interface ProcessEnv {
+    OPENROUTER_API_KEY: string
+    OPENROUTER_MODEL: string
+    OPENROUTER_APP_URL?: string
+    OPENROUTER_APP_NAME?: string
   }
 }
 
