@@ -130,6 +130,47 @@ export const productivityStyleDetails: Record<
   },
 }
 
+export function buildSuggestedFirstGoals(input: {
+  mainStruggle: MainStruggle
+  productivityStyle: ProductivityStyle
+}) {
+  const struggleGoalMap: Record<MainStruggle, string[]> = {
+    starting_on_time: [
+      'Start my top priority task within 15 minutes of beginning work on three days this week.',
+      'Prepare tomorrow’s first task before I end today.',
+    ],
+    staying_focused: [
+      'Protect one distraction-light focus block before lunch on three days this week.',
+      'Silence non-urgent notifications during my first work block this week.',
+    ],
+    finishing_tasks: [
+      'Close one meaningful task fully before switching on three days this week.',
+      'Shrink large tasks into a clear final step before I stop for the day.',
+    ],
+    managing_interruptions: [
+      'Protect one work block from interruptions on three days this week.',
+      'Batch messages into set check-in windows instead of reacting all day.',
+    ],
+  }
+
+  const styleGoalMap: Record<ProductivityStyle, string[]> = {
+    structured_strider: [
+      'Write a short plan with checkpoints before I start my top task each morning.',
+    ],
+    momentum_sprinter: [
+      'Start with a 10-minute visible win before I touch smaller tasks each day.',
+    ],
+    adaptive_balancer: [
+      'Choose one anchor task each day that stays important even when plans shift.',
+    ],
+    recovery_rebuilder: [
+      'Keep my daily target small enough that I can still follow through on low-energy days.',
+    ],
+  }
+
+  return [...struggleGoalMap[input.mainStruggle], ...styleGoalMap[input.productivityStyle]]
+}
+
 const styleScoreMap: Record<
   keyof ProductivityStyleQuizAnswers,
   Record<ProductivityStyleQuizAnswers[keyof ProductivityStyleQuizAnswers], ProductivityStyle>

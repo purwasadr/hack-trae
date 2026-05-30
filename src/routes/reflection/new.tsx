@@ -5,8 +5,10 @@ import { PageShell } from '@/components/coach/page-shell'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { FieldGroup } from '@/components/ui/field'
 import {
+  buildReflectionQuestionSet,
   getDefaultReflectionValues,
   reflectionFormSchema,
+  reflectionRatingOptions,
   reflectionMoodOptions,
 } from '@/features/coach/reflection'
 import { requireProfileOrRedirect } from '@/features/coach/route-helpers'
@@ -14,14 +16,22 @@ import { useAppForm } from '@/lib/form/app-form'
 import { createReflection } from '@/server/reflection.fn'
 
 export const Route = createFileRoute('/reflection/new')({
-  beforeLoad: async () => {
+  loader: async () => {
     await requireProfileOrRedirect()
+    const { getCoachProfile } = await import('@/server/reflection.fn')
+    const profile = await getCoachProfile()
+
+    return {
+      profile,
+      questionSet: buildReflectionQuestionSet(profile),
+    }
   },
   component: NewReflectionPage,
 })
 
 function NewReflectionPage() {
   const navigate = useNavigate()
+  const { profile, questionSet } = Route.useLoaderData()
 
   const form = useAppForm({
     defaultValues: getDefaultReflectionValues(),
@@ -48,7 +58,7 @@ function NewReflectionPage() {
     <PageShell
       eyebrow="Reflection"
       title="Capture today before the details fade"
-      description="List what you planned, what happened, and what made the day easier or harder. The coach will turn this into a practical analysis."
+      description="Pick the choices that fit today best. The coach will use them to build a practical analysis without making you type every detail."
     >
       <Card>
         <CardHeader>
@@ -68,77 +78,75 @@ function NewReflectionPage() {
               </form.AppField>
               <form.AppField name="workContext">
                 {(field) => (
-                  <field.TextAreaField
-                    label="What kind of work or study day was this?"
-                    placeholder="Example: Meetings in the morning, deep work window after lunch, and admin in the evening."
-                    rows={3}
+                  <field.ChoiceField
+                    label="Which day shape fits best?"
+                    description={profile
+                      ? `Choices are tailored to your ${profile.productivityStyle.replaceAll('_', ' ')} pattern and current goal.`
+                      : 'Choose the option that feels closest to today.'}
+                    options={questionSet.workContextOptions}
                   />
                 )}
               </form.AppField>
               <form.AppField name="plannedTasks">
                 {(field) => (
-                  <field.TextAreaField
-                    label="What did you plan to do?"
-                    placeholder="One item per line"
-                    rows={4}
+                  <field.MultiChoiceField
+                    label="What were you trying to make happen?"
+                    description="Pick the intentions that mattered most today."
+                    options={questionSet.plannedTaskOptions}
                   />
                 )}
               </form.AppField>
               <form.AppField name="completedTasks">
                 {(field) => (
-                  <field.TextAreaField
-                    label="What did you complete?"
-                    placeholder="One item per line"
-                    rows={4}
+                  <field.MultiChoiceField
+                    label="What actually moved forward?"
+                    description="Pick the outcomes that felt true by the end of the day."
+                    options={questionSet.completedTaskOptions}
                   />
                 )}
               </form.AppField>
               <form.AppField name="unfinishedTasks">
                 {(field) => (
-                  <field.TextAreaField
-                    label="What stayed unfinished?"
-                    placeholder="One item per line"
-                    rows={4}
+                  <field.MultiChoiceField
+                    label="What still felt open?"
+                    description="Pick what you would still carry into tomorrow."
+                    options={questionSet.unfinishedTaskOptions}
                   />
                 )}
               </form.AppField>
               <div className="grid gap-6 md:grid-cols-2">
                 <form.AppField name="focusLevel">
                   {(field) => (
-                    <field.InputField
-                      label="Focus level from 1 to 10"
-                      type="number"
-                      min="1"
-                      max="10"
+                    <field.SelectField
+                      label="How steady was your focus?"
+                      options={reflectionRatingOptions}
                     />
                   )}
                 </form.AppField>
                 <form.AppField name="energyLevel">
                   {(field) => (
-                    <field.InputField
-                      label="Energy level from 1 to 10"
-                      type="number"
-                      min="1"
-                      max="10"
+                    <field.SelectField
+                      label="How much energy did you have?"
+                      options={reflectionRatingOptions}
                     />
                   )}
                 </form.AppField>
               </div>
               <form.AppField name="distractions">
                 {(field) => (
-                  <field.TextAreaField
-                    label="What distracted you?"
-                    placeholder="Optional. One item per line."
-                    rows={3}
+                  <field.MultiChoiceField
+                    label="What pulled your attention away?"
+                    description="Optional. Pick any that showed up."
+                    options={questionSet.distractionOptions}
                   />
                 )}
               </form.AppField>
               <form.AppField name="blockers">
                 {(field) => (
-                  <field.TextAreaField
-                    label="What blocked progress?"
-                    placeholder="Optional. One item per line."
-                    rows={3}
+                  <field.MultiChoiceField
+                    label="What got in the way?"
+                    description="Optional. Pick the blockers that felt real."
+                    options={questionSet.blockerOptions}
                   />
                 )}
               </form.AppField>
@@ -157,8 +165,8 @@ function NewReflectionPage() {
                 {(field) => (
                   <field.TextAreaField
                     label="Anything else worth remembering?"
-                    placeholder="Optional notes, context, or observations."
-                    rows={4}
+                    placeholder="Optional. Add detail only if the choices missed something important."
+                    rows={3}
                   />
                 )}
               </form.AppField>

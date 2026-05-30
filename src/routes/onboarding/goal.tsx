@@ -7,6 +7,7 @@ import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { FieldGroup } from '@/components/ui/field'
 import {
+  buildSuggestedFirstGoals,
   calculateProductivityStyle,
   mainStruggleSchema,
   productivityAvatarSchema,
@@ -41,24 +42,26 @@ export const Route = createFileRoute('/onboarding/goal')({
 function OnboardingGoalPage() {
   const navigate = useNavigate()
   const search = Route.useSearch()
+  const scenarioAnswers = {
+    blockedResponse: search.blockedResponse,
+    focusDip: search.focusDip,
+    planningPreference: search.planningPreference,
+    wrapUpStyle: search.wrapUpStyle,
+  }
+  const productivityStyle = calculateProductivityStyle(scenarioAnswers)
+  const suggestedGoals = buildSuggestedFirstGoals({
+    mainStruggle: search.mainStruggle,
+    productivityStyle,
+  })
 
   const form = useAppForm({
     defaultValues: {
-      firstGoal: '',
+      firstGoal: suggestedGoals[0],
     },
     validators: {
       onSubmit: goalFormSchema,
     },
     onSubmit: async ({ value }) => {
-      const scenarioAnswers = {
-        blockedResponse: search.blockedResponse,
-        focusDip: search.focusDip,
-        planningPreference: search.planningPreference,
-        wrapUpStyle: search.wrapUpStyle,
-      }
-
-      const productivityStyle = calculateProductivityStyle(scenarioAnswers)
-
       await toast
         .promise(
           saveOnboardingProfile({
@@ -112,10 +115,13 @@ function OnboardingGoalPage() {
             <FieldGroup>
               <form.AppField name="firstGoal">
                 {(field) => (
-                  <field.TextAreaField
-                    label="What is one concrete improvement you want to build next?"
-                    placeholder="Example: Finish my top priority task before lunch three times this week."
-                    rows={4}
+                  <field.ChoiceField
+                    label="Which first goal feels most useful right now?"
+                    description="Pick the suggestion that feels realistic enough to follow through."
+                    options={suggestedGoals.map((goal) => ({
+                      label: goal,
+                      value: goal,
+                    }))}
                   />
                 )}
               </form.AppField>

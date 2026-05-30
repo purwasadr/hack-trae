@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
-import { calculateProductivityStyle } from './profile'
+import {
+  buildSuggestedFirstGoals,
+  calculateProductivityStyle,
+} from './profile'
 
 describe('calculateProductivityStyle', () => {
   it('returns a structured style for planning-heavy answers', () => {
@@ -23,5 +26,18 @@ describe('calculateProductivityStyle', () => {
         wrapUpStyle: 'lose_track_of_time',
       }),
     ).toBe('recovery_rebuilder')
+  })
+})
+
+describe('buildSuggestedFirstGoals', () => {
+  it('returns goal suggestions tailored to struggle and style', () => {
+    expect(
+      buildSuggestedFirstGoals({
+        mainStruggle: 'staying_focused',
+        productivityStyle: 'structured_strider',
+      }),
+    ).toContain(
+      'Protect one distraction-light focus block before lunch on three days this week.',
+    )
   })
 })

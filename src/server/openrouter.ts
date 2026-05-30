@@ -104,6 +104,7 @@ function buildPrompt(input: {
     'Do not diagnose medical conditions.',
     'Use these control labels only: within_control, partly_influenced, outside_control.',
     'Return valid JSON only. No markdown. No explanation outside the JSON object.',
+    'These reflection answers come from guided multiple-choice prompts, so be helpful without inventing fake specifics.',
     '',
     'Output schema:',
     outputContractText,
